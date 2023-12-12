@@ -1,14 +1,3 @@
-memory = {};
-
-function tryFromMemory (id, uuid, column, value) {
-  let mem_value = memory[[id, uuid, column]];
-  return mem_value ? mem_value : value;
-}
-
-function updateMemory (id, uuid, column, value) {
-  memory[[id, uuid, column]] = value;
-}
-
 let ReRenderCount = 0;
 
 function GenerateTooltipId () {
@@ -37,10 +26,7 @@ function ButtonExtras ({ id, label, uuid, column, className, children }) {
 
 function checkboxExtras ({ id, value, uuid, column, className, children }) {
 
-  value = tryFromMemory(id, uuid, column, value);
-
   const onChange = event => {
-    updateMemory(id, uuid, column, event.target.checked);
     Shiny.setInputValue(id, { row: uuid, value: event.target.checked, column: column }, { priority: 'event' })
   }
 
@@ -49,10 +35,7 @@ function checkboxExtras ({ id, value, uuid, column, className, children }) {
 
 function dateExtras ({ id, value, uuid, column, className, children }) {
 
-  value = tryFromMemory(id, uuid, column, value);
-
   const onChange = event => {
-    updateMemory(id, uuid, column, event.target.value);
     Shiny.setInputValue(id, { row: uuid, value: event.target.value, column: column }, { priority: 'event' })
   }
 
@@ -64,10 +47,7 @@ function dateExtras ({ id, value, uuid, column, className, children }) {
 
 function dropdownExtras ({ id, value, uuid, column, choices, className, children }) {
 
-  value = tryFromMemory(id, uuid, column, value);
-
   const onChange = event => {
-    updateMemory(id, uuid, column, event.target.value);
     Shiny.setInputValue(id, { row: uuid, value: event.target.value, column: column }, { priority: 'event' })
   }
 
@@ -84,10 +64,7 @@ function dropdownExtras ({ id, value, uuid, column, choices, className, children
 
 function textExtras ({ id, value, uuid, column, page, className, children }) {
 
-  value = tryFromMemory(id, uuid, column, value);
-
   const onInput = event => {
-    updateMemory(id, uuid, column, event.target.value);
     Shiny.setInputValue(id, { row: uuid, value: event.target.value, column: column }, { priority: 'event' })
   }
 
